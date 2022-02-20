@@ -15,3 +15,17 @@
    - name: version
      debug:
       var: version
+   - name: installation of jdk
+     apt:
+      name: openjdk-8-jdk
+      state: present
+   - name: checking version
+     shell: java -version
+     register: version
+   - name: output
+     debug:
+      var: version
+   - name: installation of maven
+     apt:
+      name: maven
+      state: present
