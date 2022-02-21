@@ -1,0 +1,25 @@
+- hosts: all
+  become: yes
+  ignore_errors: yes
+  remote_user: ubuntu
+  tasks: 
+   - name: install apache2
+     apt: 
+      name: apache2
+      state: latest
+     notify: restart apache2
+   - name: copy content
+     copy:
+      content: "this is ansible playbook \n"
+      dest: /var/www/html/index.html
+  handlers:
+   - name: restart apache2
+     service:
+      name: ssh
+      state: "{{ item }}"
+      enabled: yes
+     loop:
+      - stopped
+      - started
+      - restarted
+      - reloaded
